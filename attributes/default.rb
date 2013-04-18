@@ -9,3 +9,4 @@ default[:gotron][:app_environment] = "development"
 default[:gotron][:lockdown] = false
 default[:gotron][:default_site] = true
 default[:gotron][:cron_user] = "root"
+default[:gotron][:variant] = "server"

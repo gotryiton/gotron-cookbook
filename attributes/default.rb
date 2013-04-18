@@ -1,0 +1,11 @@
+default[:gotron][:app_name] = "gotron"
+default[:gotron][:server_names] = ["gotron.com"]
+default[:gotron][:mobile_server_names] = ["gotron.com"]
+default[:gotron][:services] = []
+default[:gotron][:server_name] = ["gotron.com"]
+default[:gotron][:server_aliases] = []
+default[:gotron][:server_type] = "nginx"
+default[:gotron][:app_environment] = "development"
+default[:gotron][:lockdown] = false
+default[:gotron][:default_site] = true
+default[:gotron][:cron_user] = "root"

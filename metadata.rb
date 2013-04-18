@@ -1,0 +1,15 @@
+maintainer       "gotryiton"
+maintainer_email "scott@gotryiton.com"
+license          "Apache 2.0"
+description      "Installs/Configures gtio"
+long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
+version          "5.0.0"
+
+depends          "nginx"
+depends          "php"
+depends          "java"
+depends          "percona-tools"
+depends          "beanstalkd"
+depends          "geoip"
+depends          "nodejs"
+depends          "pngout"

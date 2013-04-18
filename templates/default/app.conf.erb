@@ -1,0 +1,60 @@
+# this file is managed by Chef, changes will be overwritten
+
+<% node[:gotron][:server_names].each do |name| %>
+server {
+  listen 80;
+  server_name www.<%= name %>;
+  return 301 $scheme://<%= name %>$request_uri;
+}
+<% end %>
+
+server {
+    listen 80 <%= @default %>;
+    server_name <%= @server_names %>;
+    root <%= @root_path %>;
+    index index.php;
+
+    access_log  syslog:notice <%= @log_format %>;
+    error_log syslog:error;
+
+    location = / {
+        <% if @lockdown || @home_lockdown %>
+        auth_basic            "Restricted";
+        auth_basic_user_file  /etc/nginx/access_standard;
+        <% end %>
+        try_files $uri $uri/ @rewrites;
+    }
+
+    location / {
+        <% if @lockdown %>
+        auth_basic            "Restricted";
+        auth_basic_user_file  /etc/nginx/access_standard;
+        <% end %>
+        try_files $uri $uri/ @rewrites;
+    }
+
+    <% if @lockdown %>
+    location ^~ /users/auth {
+        auth_basic off;
+        try_files $uri $uri/ @rewrites;
+    }
+
+    location ^~ /user/auth {
+        auth_basic off;
+        try_files $uri $uri/ @rewrites;
+    }
+
+    location ~* \.(?:ico|css|js|gif|jpe?g|png)$ {
+        auth_basic off;
+        try_files $uri $uri/ @rewrites;
+    }
+    <% end %>
+
+    location @rewrites {
+        rewrite ^ /index.php last;
+    }
+
+    location ~ \.php$ {
+        include php.conf;
+    }
+}

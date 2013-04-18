@@ -1,0 +1,68 @@
+<VirtualHost *:80>
+  
+  ServerName  <%= @server_name %>  
+  DocumentRoot /var/www/gotryiton.com/current/html
+  DirectoryIndex index.php index.html
+  # Possible values include: debug, info, notice, warn, error, crit,
+  # alert, emerg.
+  LogLevel warn
+  CustomLog     /var/log/apache2/gotryiton.com-access.log combined
+  ErrorLog      /var/log/apache2/gotryiton.com-error.log
+  Alias /doc/ "/usr/share/doc/"
+
+  <Directory />
+    Options FollowSymLinks
+    AllowOverride None
+  </Directory>
+
+  <Directory /var/www/gotryiton.com/current/html>
+    Options Indexes FollowSymLinks MultiViews
+    AllowOverride None
+    Order allow,deny
+    allow from all
+
+    RewriteEngine on
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # Rewrite all other URLs to index.php/URL 
+    RewriteRule .* /index.php/$0 [PT]
+  </Directory>
+
+  <Directory /var/www/gotryiton.com/current/html/manage>
+    AuthType Basic
+    AuthName "GOTRYITON MANAGEMENT"
+    AuthUserFile /var/www/gotryiton.com/current/passwords
+    Require valid-user
+  </Directory>
+
+  <Directory /var/www/gotryiton.com/current/html/amfphp/browser>
+    AuthType Basic
+    AuthName "GOTRYITON DEVELOPMENT"
+    AuthUserFile /var/www/gotryiton.com/current/devpasswords
+    Require valid-user
+  </Directory>
+
+  <Directory /var/www/gotryiton.com/current/html/testing>
+    AuthType Basic
+    AuthName "GOTRYITON DEVELOPMENT"
+    AuthUserFile /var/www/gotryiton.com/current/devpasswords
+    Require valid-user
+  </Directory>
+  
+  <Directory "/usr/lib/cgi-bin">
+    AllowOverride None
+    Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
+    Order allow,deny
+    Allow from all
+  </Directory>
+
+  <Directory "/usr/share/doc/">
+    Options Indexes MultiViews FollowSymLinks
+    AllowOverride None
+    Order deny,allow
+    Deny from all
+    Allow from 127.0.0.0/255.0.0.0 ::1/128
+  </Directory>
+  
+</VirtualHost>

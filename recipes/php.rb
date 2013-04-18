@@ -1,0 +1,5 @@
+include_recipe "php::source_54"
+include_recipe "php::source_memcached"
+include_recipe "php::source_imagick"
+include_recipe "geoip"
+include_recipe "php::source_geoip"

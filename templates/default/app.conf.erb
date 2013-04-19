@@ -1,5 +1,9 @@
 # this file is managed by Chef, changes will be overwritten
 
+log_format <%= @log_format %> '##OOTD_ACCESS## $remote_addr - $remote_user [$time_local] $request '
+  '"$status" $body_bytes_sent "$http_referer" '
+  '"$http_user_agent" "$http_x_forwarded_for"';
+
 <% node[:gotron][:server_names].each do |name| %>
 server {
   listen 80;
@@ -14,7 +18,7 @@ server {
     root <%= @root_path %>;
     index index.php;
 
-    access_log  syslog:notice <%= @log_format %>;
+    access_log syslog:notice <%= @log_format %>;
     error_log syslog:error;
 
     location = / {

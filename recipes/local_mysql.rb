@@ -1,3 +1,5 @@
+include_recipe "mysql::server"
+
 execute "mysql localhost permissions" do
   command "mysql -u root -e \"grant all privileges on *.* to root@'10.0.2.2' identified by '' with grant option;\" "
   not_if "mysql -u root -e \"SHOW GRANTS FOR 'root'@'10.0.2.2';\" | grep 'GRANT ALL PRIVILEGES'"

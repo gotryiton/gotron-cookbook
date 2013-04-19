@@ -9,6 +9,6 @@ directory app_path do
 end
 
 link "#{app_path}/current" do
-  to "/vagrant/#{node[:gotron][:app_name]}"
+  to "/vagrant"
   not_if { File.symlink?("#{app_path}/current") }
 end

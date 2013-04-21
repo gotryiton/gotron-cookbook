@@ -2,7 +2,7 @@ app_name = node[:gotron][:app_name]
 app_path = "/var/www/#{app_name}"
 
 include_recipe "php::source_fpm"
-include_recipe "nginx::source"
+include_recipe "nginx"
 
 cookbook_file "/etc/nginx/php.conf" do
   owner "root"

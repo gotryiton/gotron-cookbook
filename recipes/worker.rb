@@ -7,5 +7,10 @@ else
 end
 
 include_recipe "gotron::php"
-include_recipe "gotron::migrations"
+
+if variant == "local"
+  include_recipe "gotron::local_mysql"
+end
+
+include_recipe "gotron::services"
 include_recipe "gotron::services"

@@ -13,4 +13,3 @@ if variant == "local"
 end
 
 include_recipe "gotron::services"
-include_recipe "gotron::services"

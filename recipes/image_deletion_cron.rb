@@ -4,6 +4,7 @@ cron "image_deletion" do
   hour '5'
   minute '0'
   command "cd /var/www/ootd/current && bin/rake RAILS_ENV=#{environment} db:cleanup:images 2>&1 | logger -t '##IMAGE_DELETION##'"
-  user node[:gotron][:cron_user]
+  path "/home/deployer/.rbenv/shims:/home/deployer/.rbenv/bin"
+  user "deployer"
 end
 

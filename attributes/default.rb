@@ -10,3 +10,5 @@ default[:gotron][:lockdown] = false
 default[:gotron][:default_site] = true
 default[:gotron][:cron_user] = "root"
 default[:gotron][:variant] = "server"
+default[:gotron][:include_mysql] = false
+default[:gotron][:db_source] = ""

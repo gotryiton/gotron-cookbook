@@ -13,3 +13,7 @@ include_recipe "gotron::web_nginx"
 if variant == "local"
   include_recipe "gotron::local_mysql"
 end
+
+if node[:gotron][:include_mysql]
+  include_recipe "gotron::mysql"
+end
